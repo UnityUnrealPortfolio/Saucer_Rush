@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://br4r5nf4pxduf"]
+
+[ext_resource type="Texture2D" uid="uid://jay6tbs7bexb" path="res://Sprites/purple.png" id="1_3aic5"]
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_sunwj"]
+[ext_resource type="PackedScene" uid="uid://dblun66x2a4ah" path="res://Scenes/player.tscn" id="2_ibr1t"]
+[ext_resource type="PackedScene" uid="uid://bum6fox1tafui" path="res://Scenes/maze.tscn" id="4_wfrv5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cc6m2"]
+font_size = 10
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_sunwj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_3aic5")
+stretch_mode = 1
+
+[node name="TutorialText" type="Label" parent="CanvasLayer"]
+offset_left = 21.0
+offset_top = 68.0
+offset_right = 355.0
+offset_bottom = 172.0
+text = "Use pad joystick to move
+Stay within the path to win
+Make it to End of path without going astray
+Good Luck!"
+label_settings = SubResource("LabelSettings_cc6m2")
+
+[node name="Player" parent="." instance=ExtResource("2_ibr1t")]
+position = Vector2(129, 419)
+scale = Vector2(0.7, 0.7)
+
+[node name="maze" parent="." instance=ExtResource("4_wfrv5")]
+z_index = -20
+position = Vector2(234, 246)
+
+[node name="StartLabel" type="Label" parent="."]
+offset_left = 280.0
+offset_top = 349.0
+offset_right = 318.0
+offset_bottom = 375.0
+text = "Start"
+
+[node name="EndLabel" type="Label" parent="."]
+offset_left = 3400.0
+offset_top = -472.0
+offset_right = 3438.0
+offset_bottom = -442.0
+text = "End"
+
+[connection signal="body_exited" from="maze" to="." method="_on_maze_body_exited"]
